@@ -1,19 +1,17 @@
 import { IoMdStar } from 'react-icons/io'
+import { Link } from 'react-router-dom'
+import { HotelTypes } from '../types/types'
 
-interface HotelCardProps {
-  name: string
-  desc: string
-  location: string
-  img: string[]
-}
 
-const HotelCard = ({ name, desc, location, img }: HotelCardProps) => {
+
+const HotelCard = ({ name, description, location, images, id }: HotelTypes) => {
   return (
+    <Link to={`/hotel/${id}`}>
     <div className='max-w-full bg-white rounded-xl overflow-hidden shadow-md relative'>
       <div className='lg:flex'>
         <div className='w-full lg:w-1/5'>
           <img
-            src={img[0]}
+            src={images[0]}
             alt={name}
             className='object-cover w-full h-full'
             style={{ objectFit: 'cover' }}
@@ -32,7 +30,7 @@ const HotelCard = ({ name, desc, location, img }: HotelCardProps) => {
               </span>
             </h4>
             <p className='mt-1 font-normal leading-relaxed text-gray-700 antialiased pb-2'>
-              {desc}
+              {description}
             </p>
           </div>
           <span className='flex flex-col md:flex-row gap-5'>
@@ -48,6 +46,7 @@ const HotelCard = ({ name, desc, location, img }: HotelCardProps) => {
         </div>
       </div>
     </div>
+    </Link>
   )
 }
 

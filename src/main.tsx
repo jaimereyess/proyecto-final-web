@@ -4,7 +4,8 @@ import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App.tsx'
 import AddHotelForm from './pages/create-hotel.tsx'
-import Hotels from './pages/hotels.tsx'
+import Hotels from './pages/hotels/hotels.tsx'
+import HotelPage from './pages/hotels/[id].tsx'
 
 export const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ export const router = createBrowserRouter([
   {
     path: '/hotels',
     element: <Hotels />,
+  },
+  {
+    path: '/hotel/:id',
+    element: <HotelPage />,
   },
   {
     path: '/create-hotel',

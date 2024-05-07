@@ -69,9 +69,26 @@ const App = () => {
                       backgroundPosition: "center bottom"}}>
               Alojamiento
           </div>
-          <div className='border-2 shadow-lg rounded-lg py-20'>Vuelos</div>
-          <div className='border-2 shadow-lg rounded-lg py-20'>Vehiculos</div>
-          <div className='border-2 shadow-lg rounded-lg py-20'>Actividades</div>
+          <div className='border-2 shadow-lg rounded-lg py-20 bg-cover text-white font-bold flex 
+                          justify-start items-start'
+              style={{backgroundImage: "url('https://media.istockphoto.com/id/155439315/es/foto/avi%C3%B3n-de-pasajeros-volando-sobre-nubes-durante-la-puesta-del-sol.jpg?s=612x612&w=0&k=20&c=E6zuCTGyaqlKa7_UDwg6vDVNFe5U53tUJZRhinQ02gg=')",
+                      backgroundPosition: "left center"}}>
+              Vuelos
+          </div>
+          
+          <div className='border-2 shadow-lg rounded-lg py-20 bg-cover text-white font-bold flex 
+                          justify-start items-start'
+              style={{backgroundImage: "url('https://img.freepik.com/fotos-premium/autos-venta-o-alquiler-fabrica-concesionario-autos-stock-ai-generado_145713-14508.jpg')",
+                      backgroundPosition: "left center"}}>
+              Vehículos
+          </div>
+          
+          <div className='border-2 shadow-lg rounded-lg py-20 bg-cover text-white font-bold flex 
+                          justify-start items-start'
+              style={{backgroundImage: "url('https://static8.depositphotos.com/1456518/938/i/450/depositphotos_9382865-stock-photo-two-skydivers-jumping-from-airplane.jpg')",
+                      backgroundPosition: "left center"}}>
+              Actividades
+          </div>
         </div>
 
         <footer className='text-center'>

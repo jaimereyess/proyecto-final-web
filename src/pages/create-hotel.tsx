@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 interface Hotel {
   name: string
@@ -14,6 +15,8 @@ const AddHotelForm: React.FC = () => {
     description: '',
     images: [],
   })
+  const navigate = useNavigate()
+
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -41,6 +44,8 @@ const AddHotelForm: React.FC = () => {
       console.log('Hotel creado:', hotelCreated)
     } catch (error) {
       console.error(error)
+    } finally {
+      navigate('/hotels')
     }
   }
 
