@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
-import { LuCalendarClock } from "react-icons/lu";
+import { LuCalendarClock } from 'react-icons/lu'
+import { Footer } from './components/footer'
+import PagesCards from './components/landing/pages-cards'
 
 const App = () => {
   return (
@@ -28,7 +30,7 @@ const App = () => {
           </div>
         </div>
 
-        <aside className='relative overflow-hidden text-black rounded-lg sm:mx-16 mx-2 sm:py-16'>
+        <aside className='relative overflow-hidden text-black rounded-lg sm:mx-16 mx-2 sm:py-16 poetsen-one-regular'>
           <div className='relative z-10 max-w-screen-xl px-4  pb-20 pt-10 sm:py-24 mx-auto sm:px-6 lg:px-8'>
             <div className='max-w-xl sm:mt-1 mt-80 space-y-8 text-center sm:text-right sm:ml-auto'>
               <h2 className='text-2xl font-bold md:text-5xl'>
@@ -58,44 +60,9 @@ const App = () => {
           />
         </div>
 
-        <h1 className='text-center text-2xl sm:text-5xl py-10 font-medium'>
-          <span className='text-yellow-400 flex flex-col'>RESERVA</span>
-          HOY MISMO
-        </h1>
-        <div className='grid grid-cols-1 lg:grid-cols-2 text-center mx-6 sm:mx-48 gap-x-5 gap-y-5 my-10'>
-          <div className='border-2 shadow-lg rounded-lg py-20 bg-cover text-white font-bold flex 
-                          justify-start items-start'
-              style={{backgroundImage: "url('/src/assets/hotel-cover.jpeg')", 
-                      backgroundPosition: "center bottom"}}>
-              Alojamiento
-          </div>
-          <div className='border-2 shadow-lg rounded-lg py-20 bg-cover text-white font-bold flex 
-                          justify-start items-start'
-              style={{backgroundImage: "url('https://media.istockphoto.com/id/155439315/es/foto/avi%C3%B3n-de-pasajeros-volando-sobre-nubes-durante-la-puesta-del-sol.jpg?s=612x612&w=0&k=20&c=E6zuCTGyaqlKa7_UDwg6vDVNFe5U53tUJZRhinQ02gg=')",
-                      backgroundPosition: "left center"}}>
-              Vuelos
-          </div>
-          
-          <div className='border-2 shadow-lg rounded-lg py-20 bg-cover text-white font-bold flex 
-                          justify-start items-start'
-              style={{backgroundImage: "url('https://img.freepik.com/fotos-premium/autos-venta-o-alquiler-fabrica-concesionario-autos-stock-ai-generado_145713-14508.jpg')",
-                      backgroundPosition: "left center"}}>
-              Vehículos
-          </div>
-          
-          <div className='border-2 shadow-lg rounded-lg py-20 bg-cover text-white font-bold flex 
-                          justify-start items-start'
-              style={{backgroundImage: "url('https://static8.depositphotos.com/1456518/938/i/450/depositphotos_9382865-stock-photo-two-skydivers-jumping-from-airplane.jpg')",
-                      backgroundPosition: "left center"}}>
-              Actividades
-          </div>
-        </div>
-
-        <footer className='text-center'>
-          <hr />
-          <p>Jaime Reyes Rodríguez</p>
-        </footer>
+        <PagesCards />
       </div>
+      <Footer />
     </main>
   )
 }

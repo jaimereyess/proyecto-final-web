@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import HotelHCard from '../../components/hotel-card'
+import HotelHCard from '../../components/hotels/cards'
 import { TailSpin } from 'react-loader-spinner'
 
 interface Hotel {
@@ -56,7 +56,6 @@ function Hotels() {
             </article>
           </div>
           <section className='flex w-full'>
-
             <ul className='flex justify-center flex-wrap gap-5'>
               {datos.map((hotel) => (
                 <HotelHCard
