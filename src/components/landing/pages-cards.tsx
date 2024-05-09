@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const PagesCards = () => {
   return (
     <section>
@@ -6,7 +8,8 @@ const PagesCards = () => {
         HOY MISMO
       </h1>
       <div className='grid grid-cols-1 lg:grid-cols-2 text-center mx-6 sm:mx-48 gap-x-5 gap-y-5 my-10'>
-        <div
+        <Link
+          to={'/hotels'}
           className='group border-2 shadow-lg rounded-lg py-20 bg-cover flex 
                     justify-center items-center hover:opacity-50'
           style={{
@@ -18,9 +21,10 @@ const PagesCards = () => {
           <span className='hidden absolute group-hover:flex text-4xl font-bold'>
             Alojamientos
           </span>
-        </div>
+        </Link>
 
-        <div
+        <Link
+          to={'/flights'}
           className='group border-2 shadow-lg rounded-lg py-20 bg-cover flex 
                     justify-center items-center hover:opacity-50 transition-all ease-in-out duration-300 '
           style={{
@@ -32,9 +36,10 @@ const PagesCards = () => {
           <span className='hidden absolute group-hover:flex text-4xl font-bold group-hover:'>
             Vuelos
           </span>
-        </div>
+        </Link>
 
-        <div
+        <Link
+          to={'/cars'}
           className='group border-2 shadow-lg rounded-lg py-20 bg-cover flex 
                     justify-center items-center hover:opacity-50'
           style={{
@@ -46,9 +51,10 @@ const PagesCards = () => {
           <span className='hidden absolute group-hover:flex text-4xl font-bold group-hover:'>
             Vehículos
           </span>
-        </div>
+        </Link>
 
-        <div
+        <Link
+          to={'/activities'}
           className='group border-2 shadow-lg rounded-lg py-20 bg-cover flex 
                     justify-center items-center hover:opacity-50'
           style={{
@@ -60,7 +66,7 @@ const PagesCards = () => {
           <span className='hidden absolute group-hover:flex text-4xl font-bold group-hover:'>
             Actividades
           </span>
-        </div>
+        </Link>
       </div>
     </section>
   )

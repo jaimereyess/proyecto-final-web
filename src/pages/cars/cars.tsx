@@ -1,0 +1,64 @@
+import { useEffect, useState } from 'react'
+import { TailSpin } from 'react-loader-spinner'
+import CarsCard from '../../components/cars/cars-card'
+import { CarTypes } from '../../types/types'
+
+function Cars() {
+  const [datos, setDatos] = useState<CarTypes[] | null>(null)
+
+  useEffect(() => {
+    const fetchData = async (url: string) => {
+      try {
+        const response = await fetch(url)
+        if (!response.ok) {
+          throw new Error('Failed to fetch data')
+        }
+        const data = await response.json()
+        console.log(data)
+        return data
+      } catch (error) {
+        throw new Error(
+          error instanceof Response ? await error.text() : 'Unknown error',
+        )
+      }
+    }
+
+    const loadData = async () => {
+      const res = await fetchData('/api/cars')
+      setDatos(res)
+    }
+
+    loadData()
+
+    return () => {
+      // Cleanup function
+    }
+  }, [])
+
+  return (
+    <main className='p-10'>
+      {datos ? (
+        <section className='flex w-full '>
+          <ul className='flex justify-center flex-wrap  gap-5'>
+            {datos.map((car) => (
+              <CarsCard key={car.car_id} car={car} />
+            ))}
+          </ul>
+        </section>
+      ) : (
+        <span className='flex justify-center'>
+          <TailSpin
+            visible={true}
+            height='80'
+            width='80'
+            color='blue'
+            ariaLabel='tail-spin-loading'
+            radius='1'
+          />
+        </span>
+      )}
+    </main>
+  )
+}
+
+export default Cars

@@ -2,16 +2,18 @@ import { useEffect, useState } from 'react'
 import HotelHCard from '../../components/hotels/cards'
 import { TailSpin } from 'react-loader-spinner'
 
-interface Hotel {
+interface HotelProps {
   hotel_id: string
   name: string
   location: string
   description: string
   images: string[]
+  breakfast_included: boolean
+  stars: number
 }
 
 function Hotels() {
-  const [datos, setDatos] = useState<Hotel[] | null>(null)
+  const [datos, setDatos] = useState<HotelProps[] | null>(null)
 
   useEffect(() => {
     const fetchData = async (url: string) => {
@@ -21,6 +23,7 @@ function Hotels() {
           throw new Error('Failed to fetch data')
         }
         const data = await response.json()
+        console.log(data)
         return data
       } catch (error) {
         throw new Error(
@@ -56,7 +59,7 @@ function Hotels() {
             </article>
           </div>
           <section className='flex w-full'>
-            <ul className='flex justify-center flex-wrap gap-5'>
+            <ul className='flex justify-center flex-col gap-5'>
               {datos.map((hotel) => (
                 <HotelHCard
                   key={hotel.hotel_id}
@@ -65,6 +68,8 @@ function Hotels() {
                   location={hotel.location}
                   description={hotel.description}
                   images={hotel.images}
+                  stars={hotel.stars}
+                  breakfast_included={hotel.breakfast_included}
                 />
               ))}
             </ul>
