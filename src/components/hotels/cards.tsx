@@ -7,9 +7,9 @@ const HotelCard = ({
   description,
   location,
   images,
-  id,
   stars,
   breakfast_included,
+  rating,
 }: HotelTypes) => {
   const renderStars = () => {
     const starIcons = []
@@ -20,7 +20,7 @@ const HotelCard = ({
   }
 
   return (
-    <Link to={`/hotel/${id}`}>
+    <Link to={`/hotel/${name.replace(/ /g, '-')}`}>
       <div className='bg-white rounded-xl overflow-hidden shadow-md relative'>
         <div className='lg:flex'>
           <div className='w-full lg:w-1/3 h-40'>
@@ -34,7 +34,7 @@ const HotelCard = ({
           <div className='flex flex-col justify-between p-4 lg:w-2/3'>
             <div>
               <h4 className='text-xl lg:text-2xl font-semibold leading-tight text-blue-gray-900 antialiased flex'>
-                {name}
+                {name} - {rating}
                 <span className='ml-4 flex'>{renderStars()}</span>
               </h4>
               <p className='mt-1 font-normal leading-relaxed text-gray-700 antialiased pb-2'>

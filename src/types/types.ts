@@ -6,6 +6,7 @@ export interface HotelTypes {
   images: string[]
   stars: number
   breakfast_included: boolean
+  rating: number
 }
 
 export interface CarTypes {

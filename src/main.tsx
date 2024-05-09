@@ -6,7 +6,7 @@ import App from './App.tsx'
 import { NextUIProvider } from '@nextui-org/react'
 import AddHotelForm from './pages/create-hotel.tsx'
 import Hotels from './pages/hotels/hotels.tsx'
-import HotelPage from './pages/hotels/[id].tsx'
+import HotelPage from './pages/hotels/[name].tsx'
 import Cars from './pages/cars/cars.tsx'
 import CarsPage from './pages/cars/[id].tsx'
 
@@ -20,7 +20,7 @@ export const router = createBrowserRouter([
     element: <Hotels />,
   },
   {
-    path: '/hotel/:id',
+    path: '/hotel/:name',
     element: <HotelPage />,
   },
   {

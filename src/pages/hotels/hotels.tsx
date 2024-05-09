@@ -10,39 +10,54 @@ interface HotelProps {
   images: string[]
   breakfast_included: boolean
   stars: number
+  rating: number
 }
 
 function Hotels() {
   const [datos, setDatos] = useState<HotelProps[] | null>(null)
+  const [searchTerm, setSearchTerm] = useState('')
+
+  const fetchData = async (url: string) => {
+    try {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error('Failed to fetch data')
+      }
+      const data = await response.json()
+      return data
+    } catch (error) {
+      throw new Error(
+        error instanceof Response ? await error.text() : 'Unknown error',
+      )
+    }
+  }
+
+  const loadData = async (searchTerm?: string) => {
+    const res = await fetchData(
+      `/api/hotel${searchTerm ? `/name/${searchTerm}` : ''}`,
+    )
+    setDatos(res)
+  }
 
   useEffect(() => {
-    const fetchData = async (url: string) => {
-      try {
-        const response = await fetch(url)
-        if (!response.ok) {
-          throw new Error('Failed to fetch data')
-        }
-        const data = await response.json()
-        console.log(data)
-        return data
-      } catch (error) {
-        throw new Error(
-          error instanceof Response ? await error.text() : 'Unknown error',
-        )
-      }
-    }
-
-    const loadData = async () => {
-      const res = await fetchData('/api/hotel')
-      setDatos(res)
-    }
-
     loadData()
-
-    return () => {
-      // Cleanup function
-    }
   }, [])
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (searchTerm.trim() !== '') {
+        loadData(searchTerm)
+      } else {
+        loadData()
+      }
+    }, 250)
+
+    return () => clearTimeout(timer)
+  }, [searchTerm])
+
+  const handleChange = (event: any) => {
+    setSearchTerm(event.target.value)
+  }
 
   return (
     <main className='p-10'>
@@ -50,11 +65,13 @@ function Hotels() {
         <div>
           <div className='rounded-lg p-5 bg-neutral-100 my-2 flex'>
             <article className='flex flex-col w-full'>
-              <label>Busca un hotel</label>
+              <label>Busca tu alojamiento perfecto</label>
               <input
                 type='text'
                 className='w-full py-2 bg-transparent border-neutral-300 border-2 rounded-xl px-2 text-xl'
                 placeholder='Riu Palace Oasis'
+                value={searchTerm}
+                onChange={handleChange}
               ></input>
             </article>
           </div>
@@ -70,6 +87,7 @@ function Hotels() {
                   images={hotel.images}
                   stars={hotel.stars}
                   breakfast_included={hotel.breakfast_included}
+                  rating={hotel.rating}
                 />
               ))}
             </ul>
