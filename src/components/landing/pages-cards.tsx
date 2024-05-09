@@ -10,8 +10,9 @@ const PagesCards = () => {
           className='group border-2 shadow-lg rounded-lg py-20 bg-cover flex 
                     justify-center items-center hover:opacity-50'
           style={{
-            backgroundImage: "url('/src/assets/hotel-cover.jpeg')",
-            backgroundPosition: 'left bottom',
+            backgroundImage:
+              "url('https://media.istockphoto.com/id/173587041/photo/hotel-bedroom.jpg?s=612x612&w=0&k=20&c=mzbT-i0sbivf2hK4aAJi0mdYVTUca8o5vij0bJq97Ks=')",
+            backgroundPosition: 'left center',
           }}
         >
           <span className='hidden absolute group-hover:flex text-4xl font-bold'>
