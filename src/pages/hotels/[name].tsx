@@ -1,13 +1,18 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { HotelTypes } from '../../types/types'
+import { HotelTypes, RoomTypes } from '../../types/types'
 import { Image } from '@nextui-org/react'
+import RoomsCards from './rooms-card'
+import { DatePicker } from '@nextui-org/react'
+import { getLocalTimeZone, today } from '@internationalized/date'
+import { I18nProvider } from '@react-aria/i18n'
 
 const mapsApi = import.meta.env.VITE_MAPS_API
 
 const HotelPage = () => {
   const { name } = useParams()
   const [hotel, setHotel] = useState<HotelTypes>()
+  const [rooms, setRooms] = useState<RoomTypes[]>([])
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0)
 
   useEffect(() => {
@@ -18,11 +23,18 @@ const HotelPage = () => {
       .then((data) => setHotel(data[0]))
       .catch((error) => console.error(error))
   }, [name])
+
+  useEffect(() => {
+    console.log(hotel)
+    fetch(`/api/rooms/hotel/${hotel?.hotel_id}`)
+      .then((response) => response.json())
+      .then((data) => setRooms(data))
+      .catch((error) => console.error(error))
+  }, [hotel])
+
   if (!hotel) {
     return <div>Cargando...</div>
   }
-
-  console.log(hotel)
 
   const renderImages = () => {
     return hotel.images.map((image, index) => (
@@ -62,8 +74,35 @@ const HotelPage = () => {
         </section>
       </div>
 
-      <div className='mt-10 grid grid-cols-1 md:grid-cols-2'>
-        <section className='flex'></section>
+      <div className='mt-10 flex flex-col'>
+        Comprobar disponibilidad
+        <section className='flex w-1/2 gap-2'>
+          <div className='w-full flex flex-col gap-1'>
+            <h3>Fecha de entrada</h3>
+            <I18nProvider locale='en-GB'>
+              <DatePicker
+                label='Date and time'
+                minValue={today(getLocalTimeZone())}
+                defaultValue={today(getLocalTimeZone())}
+              />
+            </I18nProvider>
+          </div>
+          <div className='w-full flex flex-col gap-1'>
+            <h3>Fecha de Salida</h3>
+            <I18nProvider locale='en-GB'>
+              <DatePicker
+                label='Date and time'
+                minValue={today(getLocalTimeZone())}
+                defaultValue={today(getLocalTimeZone())}
+              />
+            </I18nProvider>
+          </div>
+        </section>
+        <section className='flex w-3/4'>
+          {rooms.length} Habitaciones disponibles
+          {rooms.length > 0 &&
+            rooms.map((room, index) => <RoomsCards room={room} key={index} />)}
+        </section>
         <iframe
           className='rounded-md'
           width='400'

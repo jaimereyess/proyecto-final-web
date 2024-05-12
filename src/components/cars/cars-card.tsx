@@ -8,52 +8,59 @@ import {
   CListGroup,
   CListGroupItem,
 } from '@coreui/react'
-import { Link } from 'react-router-dom'
 
 interface CarsProps {
   car: {
     car_id: string
     brand: string
-    image: string[]
+    model: string
+    year: number
+    price: number
+    description: string
+    images: string[]
+    has_air_conditioning: boolean
     has_gps: boolean
     has_automatic_transmission: boolean
-    has_air_conditioning: boolean
   }
 }
 
 const CarsCard: React.FC<CarsProps> = ({ car }) => {
   return (
-    <Link to={`/cars/${car.car_id}`}>
-      <CCard style={{ width: '18rem' }}>
+    <CCard
+      style={{ width: '18rem' }}
+      className='bg-yellow-100/30 p-2 rounded-xl overflow-hidden'
+    >
+      <div style={{ height: '200px' }}>
         <CCardImage
           orientation='top'
-          src='https://cdn.autobild.es/sites/navi.axelspringer.es/public/media/image/2019/02/Toyota-Corolla-2019_frontal.jpg?tf=3840x'
+          src={car.images[0]}
+          className='w-full h-full object-cover rounded-xl'
+          alt={`Image of ${car.brand} - ${car.model}`}
         />
-        <CCardBody>
-          <CCardTitle>{car.brand}</CCardTitle>
-          <CCardText>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </CCardText>
-        </CCardBody>
-        <CListGroup flush>
-          <CListGroupItem>{`ID: ${car.car_id}`}</CListGroupItem>
-          <CListGroupItem>{`GPS: ${
-            car.has_gps ? 'Yes' : 'No'
-          }`}</CListGroupItem>
-          <CListGroupItem>{`Automatic Transmission: ${
-            car.has_automatic_transmission ? 'Yes' : 'No'
-          }`}</CListGroupItem>
-          <CListGroupItem>{`Air Conditioning: ${
-            car.has_air_conditioning ? 'Yes' : 'No'
-          }`}</CListGroupItem>
-        </CListGroup>
-        <CCardBody>
-          <CCardLink href='#'>Card link</CCardLink>
-          <CCardLink href='#'>Another link</CCardLink>
-        </CCardBody>
-      </CCard>
-    </Link>
+      </div>
+      <CCardBody>
+        <CCardTitle className='mt-2 text-center'>{`${car.brand} - ${car.model}`}</CCardTitle>
+        <CCardText>{`${car.description}`}</CCardText>
+      </CCardBody>
+      <CListGroup flush>
+        <CListGroupItem>{`Year: ${car.year}`}</CListGroupItem>
+        <CListGroupItem>{`GPS: ${car.has_gps ? 'Yes' : 'No'}`}</CListGroupItem>
+        <CListGroupItem>{`Automatic Transmission: ${
+          car.has_automatic_transmission ? 'Yes' : 'No'
+        }`}</CListGroupItem>
+        <CListGroupItem>{`Air Conditioning: ${
+          car.has_air_conditioning ? 'Yes' : 'No'
+        }`}</CListGroupItem>
+      </CListGroup>
+      <CCardBody className='mt-5'>
+        <CCardLink
+          className='w-full bg-orange-300 py-2 px-3 rounded-lg float-right text-center'
+          href={`/cars/${car.car_id}`}
+        >
+          Alquilar - {car.price} €/día
+        </CCardLink>
+      </CCardBody>
+    </CCard>
   )
 }
 
