@@ -1,6 +1,9 @@
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/" },
-    { "source": "/api/(.*)", "destination": "http://51.51.20.119.250]" }
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "http://51.20.119.250"
+    }
   ]
 }
