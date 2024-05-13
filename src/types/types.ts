@@ -25,6 +25,7 @@ export interface CarTypes {
 
 export interface RoomTypes {
   room_id: string
+  hotel_id: string
   quantity: number
   free_quantity: number
   max_guests: number
@@ -34,4 +35,17 @@ export interface RoomTypes {
   has_terrace: boolean
   has_tv: boolean
   has_wifi: boolean
+}
+
+export interface HotelCardProps {
+  hotel_id?: string
+  id?: string
+  name: string
+  location: string
+  description: string
+  images: string[]
+  breakfast_included: boolean
+  stars: number
+  rating: number
+  rooms: RoomTypes[] | null
 }

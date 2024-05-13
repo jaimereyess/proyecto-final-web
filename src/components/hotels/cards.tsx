@@ -1,6 +1,6 @@
 import { IoMdStar } from 'react-icons/io'
 import { Link } from 'react-router-dom'
-import { HotelTypes } from '../../types/types'
+import { HotelCardProps } from '../../types/types'
 
 const HotelCard = ({
   name,
@@ -10,7 +10,8 @@ const HotelCard = ({
   stars,
   breakfast_included,
   rating,
-}: HotelTypes) => {
+  rooms,
+}: HotelCardProps) => {
   const renderStars = () => {
     const starIcons = []
     for (let i = 0; i < stars; i++) {
@@ -18,6 +19,13 @@ const HotelCard = ({
     }
     return starIcons
   }
+
+  const lowestRoomnPrice = rooms?.reduce((acc, room) => {
+    if (acc === 0) {
+      return parseFloat(room.price)
+    }
+    return parseFloat(room.price) < acc ? parseFloat(room.price) : acc
+  }, 0)
 
   return (
     <Link to={`/hotel/${name.replace(/ /g, '-')}`}>
@@ -50,9 +58,17 @@ const HotelCard = ({
                   </span>
                 )}
               </div>
-              <span className='text-sm'>
-                desde <span className='text-lg font-bold'>200€</span>
-              </span>
+              <div className='text-sm'>
+                desde{' '}
+                {lowestRoomnPrice ? (
+                  <span className='text-lg font-bold'>
+                    {lowestRoomnPrice}{' '}
+                    <span className=' font-normal text-sm'>€/noche</span>
+                  </span>
+                ) : (
+                  '-'
+                )}
+              </div>
             </div>
           </div>
         </div>

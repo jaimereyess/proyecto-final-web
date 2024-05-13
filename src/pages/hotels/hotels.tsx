@@ -1,21 +1,12 @@
 import { useEffect, useState } from 'react'
 import HotelHCard from '../../components/hotels/cards'
-import { TailSpin } from 'react-loader-spinner'
-
-interface HotelProps {
-  hotel_id: string
-  name: string
-  location: string
-  description: string
-  images: string[]
-  breakfast_included: boolean
-  stars: number
-  rating: number
-}
+import { MutatingDots } from 'react-loader-spinner'
+import { RoomTypes, HotelCardProps } from '../../types/types'
 
 function Hotels() {
-  const [datos, setDatos] = useState<HotelProps[] | null>(null)
+  const [datos, setDatos] = useState<HotelCardProps[] | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
+  const [rooms, setRooms] = useState<RoomTypes[] | null>(null)
 
   const fetchData = async (url: string) => {
     try {
@@ -38,7 +29,7 @@ function Hotels() {
       `/api/hotel${searchTerm ? `/name/${searchTerm}` : ''}`,
     )
     // search by location
-    let resLocation: HotelProps[] = []
+    let resLocation: HotelCardProps[] = []
     if (searchTerm) {
       resLocation = await fetchData(
         `/api/hotel/${searchTerm ? `location/${searchTerm}` : ''}`,
@@ -47,7 +38,7 @@ function Hotels() {
 
     const uniqueHotels = [...res, ...resLocation].reduce((acc, hotel) => {
       const existingHotel = acc.find(
-        (h: HotelProps) => h.hotel_id === hotel.hotel_id,
+        (h: HotelCardProps) => h.hotel_id === hotel.hotel_id,
       )
       if (!existingHotel) {
         acc.push(hotel)
@@ -75,9 +66,35 @@ function Hotels() {
     return () => clearTimeout(timer)
   }, [searchTerm])
 
-  const handleChange = (event: any) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      //load rooms data
+      const res = await fetch('/api/rooms')
+      const data = await res.json()
+      setRooms(data)
+    }
+
+    fetchData()
+  }, [datos])
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value)
   }
+
+  //añadir el array de rooms a cada hotel
+  useEffect(() => {
+    if (datos && rooms) {
+      const hotelsWithRooms = datos.map((hotel) => {
+        const hotelRooms = rooms.filter(
+          (room) => room.hotel_id === hotel.hotel_id,
+        )
+        return { ...hotel, rooms: hotelRooms }
+      })
+      setDatos(hotelsWithRooms)
+    }
+  }, [rooms])
+
+  console.log(datos)
 
   return (
     <main className='p-10'>
@@ -108,20 +125,24 @@ function Hotels() {
                   stars={hotel.stars}
                   breakfast_included={hotel.breakfast_included}
                   rating={hotel.rating}
+                  rooms={hotel.rooms}
                 />
               ))}
             </ul>
           </section>
         </div>
       ) : (
-        <span className='flex justify-center'>
-          <TailSpin
+        <span className='flex justify-center h-screen items-center'>
+          <MutatingDots
             visible={true}
-            height='80'
-            width='80'
-            color='blue'
-            ariaLabel='tail-spin-loading'
-            radius='1'
+            height='100'
+            width='100'
+            color='orange'
+            secondaryColor='yellow'
+            radius='12.5'
+            ariaLabel='mutating-dots-loading'
+            wrapperStyle={{}}
+            wrapperClass=''
           />
         </span>
       )}
