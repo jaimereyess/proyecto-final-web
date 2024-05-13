@@ -1,7 +1,10 @@
 import { PlaceholdersAndVanishInput } from '../ui/placeholders-and-vanish-input'
 import { useNavigate } from 'react-router-dom'
+import { useStore } from '../../pages/hotels/hotels'
 
 export function PlaceholdersInputs() {
+  const { inc } = useStore()
+
   const placeholders = [
     'Islas Canarias',
     'Maldivas',
@@ -16,12 +19,15 @@ export function PlaceholdersInputs() {
   const navigate = useNavigate()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value)
+    e.target.value
   }
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    const inputValue = e.currentTarget[0].value
+    inc(inputValue)
     navigate('/hotels')
   }
+
   return (
     <div className='flex flex-col justify-center  items-center px-4'>
       <h2 className='mb-10 sm:mb-20 text-center text-3xl md:text-5xl dark:text-white text-black'>

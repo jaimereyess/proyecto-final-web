@@ -2,11 +2,23 @@ import { useEffect, useState } from 'react'
 import HotelHCard from '../../components/hotels/cards'
 import { MutatingDots } from 'react-loader-spinner'
 import { RoomTypes, HotelCardProps } from '../../types/types'
+import { create } from 'zustand'
+
+interface StoreState {
+  mensaje: string
+  inc: (mensaje: string) => void
+}
+
+export const useStore = create<StoreState>((set) => ({
+  mensaje: '',
+  inc: (mensaje: string) => set({ mensaje }), // Actualiza el mensaje con el valor proporcionado
+}))
 
 function Hotels() {
   const [datos, setDatos] = useState<HotelCardProps[] | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [rooms, setRooms] = useState<RoomTypes[] | null>(null)
+  const { mensaje } = useStore()
 
   const fetchData = async (url: string) => {
     try {
@@ -50,7 +62,7 @@ function Hotels() {
   }
 
   useEffect(() => {
-    loadData()
+    loadData(mensaje)
   }, [])
 
   // search by name
@@ -94,8 +106,6 @@ function Hotels() {
     }
   }, [rooms])
 
-  console.log(datos)
-
   return (
     <main className='p-10'>
       {datos ? (
@@ -106,7 +116,7 @@ function Hotels() {
               <input
                 type='text'
                 className='w-full py-2 bg-transparent border-neutral-300 border-2 rounded-xl px-2 text-xl'
-                placeholder='Riu Palace Oasis'
+                placeholder={mensaje}
                 value={searchTerm}
                 onChange={handleChange}
               ></input>
