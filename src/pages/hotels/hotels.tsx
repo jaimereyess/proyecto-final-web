@@ -33,16 +33,36 @@ function Hotels() {
   }
 
   const loadData = async (searchTerm?: string) => {
+    // search by name
     const res = await fetchData(
       `/api/hotel${searchTerm ? `/name/${searchTerm}` : ''}`,
     )
-    setDatos(res)
+    // search by location
+    let resLocation: HotelProps[] = []
+    if (searchTerm) {
+      resLocation = await fetchData(
+        `/api/hotel/${searchTerm ? `location/${searchTerm}` : ''}`,
+      )
+    }
+
+    const uniqueHotels = [...res, ...resLocation].reduce((acc, hotel) => {
+      const existingHotel = acc.find(
+        (h: HotelProps) => h.hotel_id === hotel.hotel_id,
+      )
+      if (!existingHotel) {
+        acc.push(hotel)
+      }
+      return acc
+    }, [])
+
+    setDatos(uniqueHotels)
   }
 
   useEffect(() => {
     loadData()
   }, [])
 
+  // search by name
   useEffect(() => {
     const timer = setTimeout(() => {
       if (searchTerm.trim() !== '') {
