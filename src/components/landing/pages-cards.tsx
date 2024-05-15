@@ -18,10 +18,8 @@ const PagesCards = () => {
             backgroundPosition: 'left center',
           }}
         >
-          <span className='absolute inset-0 flex justify-center items-center text-4xl font-bold hover:bg-black hover:bg-opacity-50 transition-all ease-in-out duration-300'>
-            <span className='hidden group-hover:block text-white'>
-              Alojamientos
-            </span>
+          <span className='absolute inset-0 flex justify-center items-center text-4xl font-bold bg-black bg-opacity-50 transition-all ease-in-out duration-300 group-hover:scale-110'>
+            <span className='block text-white'>Alojamientos</span>
           </span>
         </Link>
 
@@ -35,8 +33,8 @@ const PagesCards = () => {
             backgroundPosition: 'left center',
           }}
         >
-          <span className='absolute inset-0 flex justify-center items-center text-4xl font-bold hover:bg-black hover:bg-opacity-50 transition-all ease-in-out duration-300'>
-            <span className='hidden group-hover:block text-white'>Vuelos</span>
+          <span className='absolute inset-0 flex justify-center items-center text-4xl font-bold bg-black bg-opacity-50 transition-all ease-in-out duration-300 group-hover:scale-110'>
+            <span className='block text-white'>Vuelos</span>
           </span>
         </Link>
 
@@ -50,10 +48,8 @@ const PagesCards = () => {
             backgroundPosition: 'left center',
           }}
         >
-          <span className='absolute inset-0 flex justify-center items-center text-4xl font-bold hover:bg-black hover:bg-opacity-50 transition-all ease-in-out duration-300'>
-            <span className='hidden group-hover:block text-white'>
-              Vehículos
-            </span>
+          <span className='absolute inset-0 flex justify-center items-center text-4xl font-bold bg-black bg-opacity-50 transition-all ease-in-out duration-300 group-hover:scale-110'>
+            <span className='block text-white'>Vehículos</span>
           </span>
         </Link>
 
@@ -67,10 +63,8 @@ const PagesCards = () => {
             backgroundPosition: 'left center',
           }}
         >
-          <span className='absolute inset-0 flex justify-center items-center text-4xl font-bold hover:bg-black hover:bg-opacity-50 transition-all ease-in-out duration-300'>
-            <span className='hidden group-hover:block text-white'>
-              Actividades
-            </span>
+          <span className='absolute inset-0 flex justify-center items-center text-4xl font-bold bg-black bg-opacity-50 transition-all ease-in-out duration-300 group-hover:scale-110'>
+            <span className='block text-white'>Actividades</span>
           </span>
         </Link>
       </div>

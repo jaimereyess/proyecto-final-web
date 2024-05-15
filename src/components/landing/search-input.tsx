@@ -23,7 +23,8 @@ export function PlaceholdersInputs() {
   }
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const inputValue = e.currentTarget[0].value
+    const inputElement = e.currentTarget.elements[0] as HTMLInputElement
+    const inputValue = inputElement.value
     inc(inputValue)
     navigate('/hotels')
   }

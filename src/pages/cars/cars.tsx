@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { TailSpin } from 'react-loader-spinner'
+import { MutatingDots } from 'react-loader-spinner'
 import CarsCard from '../../components/cars/cars-card'
 import { CarTypes } from '../../types/types'
 
@@ -46,14 +46,17 @@ function Cars() {
           </ul>
         </section>
       ) : (
-        <span className='flex justify-center'>
-          <TailSpin
+        <span className='flex justify-center h-screen items-center'>
+          <MutatingDots
             visible={true}
-            height='80'
-            width='80'
-            color='blue'
-            ariaLabel='tail-spin-loading'
-            radius='1'
+            height='100'
+            width='100'
+            color='orange'
+            secondaryColor='yellow'
+            radius='12.5'
+            ariaLabel='mutating-dots-loading'
+            wrapperStyle={{}}
+            wrapperClass=''
           />
         </span>
       )}

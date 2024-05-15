@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import Navbar from '../../components/navbar'
 import HotelHCard from '../../components/hotels/cards'
 import { MutatingDots } from 'react-loader-spinner'
 import { RoomTypes, HotelCardProps } from '../../types/types'
@@ -15,10 +16,10 @@ export const useStore = create<StoreState>((set) => ({
 }))
 
 function Hotels() {
-  const [datos, setDatos] = useState<HotelCardProps[] | null>(null)
-  const [searchTerm, setSearchTerm] = useState('')
-  const [rooms, setRooms] = useState<RoomTypes[] | null>(null)
   const { mensaje } = useStore()
+  const [datos, setDatos] = useState<HotelCardProps[] | null>(null)
+  const [searchTerm, setSearchTerm] = useState(mensaje)
+  const [rooms, setRooms] = useState<RoomTypes[] | null>(null)
 
   const fetchData = async (url: string) => {
     try {
@@ -107,56 +108,59 @@ function Hotels() {
   }, [rooms])
 
   return (
-    <main className='p-10'>
-      {datos ? (
-        <div>
-          <div className='rounded-lg p-5 bg-neutral-100 my-2 flex'>
-            <article className='flex flex-col w-full'>
-              <label>Busca tu alojamiento perfecto</label>
-              <input
-                type='text'
-                className='w-full py-2 bg-transparent border-neutral-300 border-2 rounded-xl px-2 text-xl'
-                placeholder={mensaje}
-                value={searchTerm}
-                onChange={handleChange}
-              ></input>
-            </article>
+    <div>
+      <Navbar />
+      <main className='p-10'>
+        {datos ? (
+          <div>
+            <div className='rounded-lg p-5 bg-neutral-100 my-2 flex'>
+              <article className='flex flex-col w-full'>
+                <label>Busca tu alojamiento perfecto</label>
+                <input
+                  type='text'
+                  className='w-full py-2 bg-transparent border-neutral-300 border-2 rounded-xl px-2 text-xl'
+                  placeholder={'¿Adónde te gustaría ir?'}
+                  value={searchTerm}
+                  onChange={handleChange}
+                ></input>
+              </article>
+            </div>
+            <section className='flex w-full'>
+              <ul className='flex justify-center flex-col gap-5'>
+                {datos.map((hotel) => (
+                  <HotelHCard
+                    key={hotel.hotel_id}
+                    id={hotel.hotel_id}
+                    name={hotel.name}
+                    location={hotel.location}
+                    description={hotel.description}
+                    images={hotel.images}
+                    stars={hotel.stars}
+                    breakfast_included={hotel.breakfast_included}
+                    rating={hotel.rating}
+                    rooms={hotel.rooms}
+                  />
+                ))}
+              </ul>
+            </section>
           </div>
-          <section className='flex w-full'>
-            <ul className='flex justify-center flex-col gap-5'>
-              {datos.map((hotel) => (
-                <HotelHCard
-                  key={hotel.hotel_id}
-                  id={hotel.hotel_id}
-                  name={hotel.name}
-                  location={hotel.location}
-                  description={hotel.description}
-                  images={hotel.images}
-                  stars={hotel.stars}
-                  breakfast_included={hotel.breakfast_included}
-                  rating={hotel.rating}
-                  rooms={hotel.rooms}
-                />
-              ))}
-            </ul>
-          </section>
-        </div>
-      ) : (
-        <span className='flex justify-center h-screen items-center'>
-          <MutatingDots
-            visible={true}
-            height='100'
-            width='100'
-            color='orange'
-            secondaryColor='yellow'
-            radius='12.5'
-            ariaLabel='mutating-dots-loading'
-            wrapperStyle={{}}
-            wrapperClass=''
-          />
-        </span>
-      )}
-    </main>
+        ) : (
+          <span className='flex justify-center h-screen items-center'>
+            <MutatingDots
+              visible={true}
+              height='100'
+              width='100'
+              color='orange'
+              secondaryColor='yellow'
+              radius='12.5'
+              ariaLabel='mutating-dots-loading'
+              wrapperStyle={{}}
+              wrapperClass=''
+            />
+          </span>
+        )}
+      </main>
+    </div>
   )
 }
 
