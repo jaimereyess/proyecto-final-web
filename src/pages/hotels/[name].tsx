@@ -6,6 +6,7 @@ import RoomsCards from './rooms-card'
 import { DatePicker } from '@nextui-org/react'
 import { getLocalTimeZone, today } from '@internationalized/date'
 import { I18nProvider } from '@react-aria/i18n'
+import LoaderDots from '../../components/loader'
 
 const mapsApi = import.meta.env.VITE_MAPS_API
 
@@ -18,7 +19,7 @@ const HotelPage = () => {
   useEffect(() => {
     const formattedName = name!.replace(/-/g, ' ')
 
-    fetch(`/api/hotel/name/${formattedName}`)
+    fetch(`https://51.20.119.250/hotel/name/${formattedName}`)
       .then((response) => response.json())
       .then((data) => setHotel(data[0]))
       .catch((error) => console.error(error))
@@ -26,14 +27,14 @@ const HotelPage = () => {
 
   useEffect(() => {
     console.log(hotel)
-    fetch(`/api/rooms/hotel/${hotel?.hotel_id}`)
+    fetch(`https://51.20.119.250/rooms/hotel/${hotel?.hotel_id}`)
       .then((response) => response.json())
       .then((data) => setRooms(data))
       .catch((error) => console.error(error))
   }, [hotel])
 
   if (!hotel) {
-    return <div>Cargando...</div>
+    return <LoaderDots />
   }
 
   const renderImages = () => {

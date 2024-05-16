@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import Navbar from '../../components/navbar'
 import HotelHCard from '../../components/hotels/cards'
-import { MutatingDots } from 'react-loader-spinner'
 import { RoomTypes, HotelCardProps } from '../../types/types'
 import { create } from 'zustand'
+import LoaderDots from '../../components/loader'
 
 interface StoreState {
   mensaje: string
@@ -39,13 +39,15 @@ function Hotels() {
   const loadData = async (searchTerm?: string) => {
     // search by name
     const res = await fetchData(
-      `/api/hotel${searchTerm ? `/name/${searchTerm}` : ''}`,
+      `https://51.20.119.250/hotel${searchTerm ? `/name/${searchTerm}` : ''}`,
     )
     // search by location
     let resLocation: HotelCardProps[] = []
     if (searchTerm) {
       resLocation = await fetchData(
-        `/api/hotel/${searchTerm ? `location/${searchTerm}` : ''}`,
+        `https://51.20.119.250/hotel/${
+          searchTerm ? `location/${searchTerm}` : ''
+        }`,
       )
     }
 
@@ -82,7 +84,7 @@ function Hotels() {
   useEffect(() => {
     const fetchData = async () => {
       //load rooms data
-      const res = await fetch('/api/rooms')
+      const res = await fetch('https://51.20.119.250/rooms')
       const data = await res.json()
       setRooms(data)
     }
@@ -145,19 +147,7 @@ function Hotels() {
             </section>
           </div>
         ) : (
-          <span className='flex justify-center h-screen items-center'>
-            <MutatingDots
-              visible={true}
-              height='100'
-              width='100'
-              color='orange'
-              secondaryColor='yellow'
-              radius='12.5'
-              ariaLabel='mutating-dots-loading'
-              wrapperStyle={{}}
-              wrapperClass=''
-            />
-          </span>
+          <LoaderDots />
         )}
       </main>
     </div>

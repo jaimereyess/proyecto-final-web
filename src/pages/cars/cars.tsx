@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { MutatingDots } from 'react-loader-spinner'
 import CarsCard from '../../components/cars/cars-card'
 import { CarTypes } from '../../types/types'
+import LoaderDots from '../../components/loader'
 
 function Cars() {
   const [datos, setDatos] = useState<CarTypes[] | null>(null)
@@ -24,7 +24,7 @@ function Cars() {
     }
 
     const loadData = async () => {
-      const res = await fetchData('/api/cars')
+      const res = await fetchData('https://51.20.119.250/cars')
       setDatos(res)
     }
 
@@ -46,19 +46,7 @@ function Cars() {
           </ul>
         </section>
       ) : (
-        <span className='flex justify-center h-screen items-center'>
-          <MutatingDots
-            visible={true}
-            height='100'
-            width='100'
-            color='orange'
-            secondaryColor='yellow'
-            radius='12.5'
-            ariaLabel='mutating-dots-loading'
-            wrapperStyle={{}}
-            wrapperClass=''
-          />
-        </span>
+        <LoaderDots />
       )}
     </main>
   )

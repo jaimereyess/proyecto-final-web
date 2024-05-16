@@ -31,7 +31,7 @@ const AddHotelForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      const response = await fetch('/api/hotel', {
+      const response = await fetch('https://51.20.119.250/hotel', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

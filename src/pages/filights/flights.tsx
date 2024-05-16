@@ -3,6 +3,7 @@ import { FlightTypes, AirportTypes } from '../../types/types'
 import { I18nProvider } from '@react-aria/i18n'
 import { DatePicker } from '@nextui-org/react'
 import { today, getLocalTimeZone } from '@internationalized/date'
+import LoaderDots from '../../components/loader'
 
 const Flights = () => {
   const [flightsData, setFlightsData] = useState<FlightTypes[] | null>(null)
@@ -30,7 +31,7 @@ const Flights = () => {
     }
 
     const loadAirportsData = async () => {
-      const airports = await fetchData('/api/airports')
+      const airports = await fetchData('https://51.20.119.250/airports')
       const airportInfoMap: { [key: string]: AirportTypes } = {}
       airports.forEach((airport: AirportTypes) => {
         airportInfoMap[airport.airport_code] = airport
@@ -39,7 +40,7 @@ const Flights = () => {
     }
 
     const loadFlightsData = async () => {
-      const flights = await fetchData('/api/flights')
+      const flights = await fetchData('https://51.20.119.250/flights')
       setFlightsData(flights)
       setLoading(false)
     }
@@ -63,7 +64,7 @@ const Flights = () => {
   }
 
   if (loading) {
-    return <p>Loading...</p>
+    return <LoaderDots />
   }
 
   const filteredFlights = searchTerm
