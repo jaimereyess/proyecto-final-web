@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import Navbar from '../../components/navbar'
 import HotelHCard from '../../components/hotels/cards'
 import { RoomTypes, HotelCardProps } from '../../types/types'
 import { create } from 'zustand'
@@ -111,7 +110,6 @@ function Hotels() {
 
   return (
     <div>
-      <Navbar />
       <main className='p-10'>
         {datos ? (
           <div>

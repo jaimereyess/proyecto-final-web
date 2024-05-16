@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 export const Footer = () => {
   return (
-    <footer className='p-4 rounded-lg shadow md:px-6 md:py-8 bg-gradient-to-b from-yellow-300/20 from-10% via-orange-600/30 via-100%'>
+    <footer className='poetsen-one-regular p-4 rounded-lg shadow md:px-6 md:py-8 bg-gradient-to-b from-yellow-300/20 from-10% via-orange-600/30 via-100%'>
       <div className='sm:flex sm:items-center sm:justify-between'>
         <a href='#' target='_blank' className='flex items-center mb-4 sm:mb-0'>
           <img src='/logo.png' className='mr-4 h-20' alt='Flowbite Logo' />
