@@ -9,6 +9,7 @@ import Hotels from './pages/hotels/hotels.tsx'
 import HotelPage from './pages/hotels/[name].tsx'
 import Cars from './pages/cars/cars.tsx'
 import CarsPage from './pages/cars/[id].tsx'
+import Flights from './pages/filights/flights.tsx'
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
   {
     path: '/cars/:id',
     element: <CarsPage />,
+  },
+  {
+    path: '/flights',
+    element: <Flights />,
   },
 ])
 

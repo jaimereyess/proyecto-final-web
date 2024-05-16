@@ -49,3 +49,20 @@ export interface HotelCardProps {
   rating: number
   rooms: RoomTypes[] | null
 }
+
+export interface FlightTypes {
+  flight_id: string
+  airline: string
+  departure_airport: string
+  arrival_airport: string
+  departure_date: string
+  arrival_date: string
+  price: number
+}
+
+export interface AirportTypes {
+  airports_id: string
+  airport_code: string
+  city: string
+  country: string
+}
