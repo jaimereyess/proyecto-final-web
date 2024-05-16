@@ -3,28 +3,71 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { NextUIProvider } from '@nextui-org/react'
-import App from './App.tsx'
-import Home from './pages/home.tsx'
-import AddHotelForm from './pages/create-hotel.tsx'
-import Hotels from './pages/hotels/hotels.tsx'
-import HotelPage from './pages/hotels/[name].tsx'
-import Cars from './pages/cars/cars.tsx'
-import CarsPage from './pages/cars/[id].tsx'
-import Flights from './pages/filights/flights.tsx'
+import Home from './pages/home'
+import AddHotelForm from './pages/create-hotel'
+import Hotels from './pages/hotels/hotels'
+import HotelPage from './pages/hotels/[name]'
+import Cars from './pages/cars/cars'
+import CarsPage from './pages/cars/[id]'
+import Flights from './pages/filights/flights'
+import Layout from './Layout'
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
-    children: [
-      { path: '', element: <Home /> },
-      { path: 'hotels', element: <Hotels /> },
-      { path: 'hotel/:name', element: <HotelPage /> },
-      { path: 'create-hotel', element: <AddHotelForm /> },
-      { path: 'cars', element: <Cars /> },
-      { path: 'cars/:id', element: <CarsPage /> },
-      { path: 'flights', element: <Flights /> },
-    ],
+    element: (
+      <Layout>
+        <Home />
+      </Layout>
+    ),
+  },
+  {
+    path: '/hotels',
+    element: (
+      <Layout>
+        <Hotels />
+      </Layout>
+    ),
+  },
+  {
+    path: '/hotel/:name',
+    element: (
+      <Layout>
+        <HotelPage />
+      </Layout>
+    ),
+  },
+  {
+    path: '/create-hotel',
+    element: (
+      <Layout>
+        <AddHotelForm />
+      </Layout>
+    ),
+  },
+  {
+    path: '/cars',
+    element: (
+      <Layout>
+        <Cars />
+      </Layout>
+    ),
+  },
+  {
+    path: '/cars/:id',
+    element: (
+      <Layout>
+        <CarsPage />
+      </Layout>
+    ),
+  },
+  {
+    path: '/flights',
+    element: (
+      <Layout>
+        <Flights />
+      </Layout>
+    ),
   },
 ])
 
