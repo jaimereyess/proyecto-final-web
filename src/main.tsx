@@ -10,7 +10,7 @@ import HotelPage from './pages/hotels/[name]'
 import Cars from './pages/cars/cars'
 import CarsPage from './pages/cars/[id]'
 import Flights from './pages/filights/flights'
-import Layout from './Layout'
+import Layout from './layout'
 
 export const router = createBrowserRouter([
   {
