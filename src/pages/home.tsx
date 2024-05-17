@@ -1,9 +1,12 @@
 import PagesCards from '../components/landing/pages-cards'
 import { PlaceholdersInputs } from '../components/landing/search-input'
+import { BackgroundBeams } from '../components/ui/background-beams'
+import SliderDestinations from '../components/landing/sliders-destination'
 
 const Home = () => {
   return (
     <section className='poetsen-one-regular'>
+      <BackgroundBeams />
       <div className='relative z-10  px-4 pb-20 pt-16 md:pt-5  sm:px-6 lg:px-8 text-center'>
         <PlaceholdersInputs />
       </div>
@@ -20,6 +23,7 @@ const Home = () => {
       </div>
 
       <PagesCards />
+      <SliderDestinations />
     </section>
   )
 }

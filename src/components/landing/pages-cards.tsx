@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 const PagesCards = () => {
   return (
     <section>
-      <h1 className='text-center text-2xl sm:text-5xl py-10 font-medium poetsen-one-regular'>
+      <h3 className='text-center text-2xl sm:text-5xl py-10 font-medium poetsen-one-regular'>
         <span className='text-yellow-400 flex flex-col'>RESERVA</span>
         HOY MISMO
-      </h1>
+      </h3>
       <div className='grid grid-cols-1 lg:grid-cols-2 text-center mx-6 sm:mx-48 gap-x-5 gap-y-5 my-10'>
         <Link
           to={'/hotels'}

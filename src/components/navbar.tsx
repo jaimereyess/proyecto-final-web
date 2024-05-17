@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 const Navbar = () => {
   return (
@@ -10,13 +10,39 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <div className='w-full  h-full flex justify-end items-center gap-5 mr-2'>
-          <Link
-            to='/create-hotel'
-            className='px-4 py-2 bg-neutral-400 bg-opacity-20 hover:bg-opacity-40 rounded-lg'
+        <div className='w-full  h-full flex justify-end items-center gap-5 mr-5'>
+          <NavLink
+            to='/hotels'
+            className={({ isActive }) =>
+              isActive ? 'text-white' : 'hover:text-indigo-600'
+            }
           >
-            Registra tu alojamiento
-          </Link>
+            Alojamiento
+          </NavLink>
+          <NavLink
+            to='/flights'
+            className={({ isActive }) =>
+              isActive ? 'text-white' : 'hover:text-indigo-600'
+            }
+          >
+            Vuelos
+          </NavLink>
+          <NavLink
+            to='/cars'
+            className={({ isActive }) =>
+              isActive ? 'text-white' : 'hover:text-indigo-600'
+            }
+          >
+            Vehículos
+          </NavLink>
+          <NavLink
+            to='/activities'
+            className={({ isActive }) =>
+              isActive ? 'text-white' : 'hover:text-indigo-600'
+            }
+          >
+            Actividades
+          </NavLink>
         </div>
       </div>
     </nav>

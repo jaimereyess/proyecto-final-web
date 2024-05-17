@@ -34,7 +34,7 @@ export function PlaceholdersAndVanishInput({
     if (!inputRef.current) return
     const canvas = canvasRef.current
     if (!canvas) return
-    const ctx = canvas.getContext('2d')
+    const ctx = canvas.getContext('2d', { willReadFrequently: true }) // Set willReadFrequently to true
     if (!ctx) return
 
     canvas.width = 800
@@ -106,7 +106,9 @@ export function PlaceholdersAndVanishInput({
           }
         }
         newDataRef.current = newArr
-        const ctx = canvasRef.current?.getContext('2d')
+        const ctx = canvasRef.current?.getContext('2d', {
+          willReadFrequently: true,
+        })
         if (ctx) {
           ctx.clearRect(pos, 0, 800, 800)
           newDataRef.current.forEach((t) => {
@@ -186,6 +188,8 @@ export function PlaceholdersAndVanishInput({
           'w-full relative text-sm sm:text-base z-50 border-none dark:text-white bg-transparent text-black h-full rounded-full focus:outline-none focus:ring-0 pl-4 sm:pl-10 pr-20',
           animating && 'text-transparent dark:text-transparent',
         )}
+        id='search'
+        name='search'
       />
 
       <button

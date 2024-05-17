@@ -11,7 +11,7 @@ interface StoreState {
 
 export const useStore = create<StoreState>((set) => ({
   mensaje: '',
-  inc: (mensaje: string) => set({ mensaje }), // Actualiza el mensaje con el valor proporcionado
+  inc: (mensaje: string) => set({ mensaje }),
 }))
 
 function Hotels() {

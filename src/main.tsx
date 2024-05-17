@@ -71,6 +71,10 @@ export const router = createBrowserRouter([
       </Layout>
     ),
   },
+  {
+    path: '*',
+    element: <NotFound />,
+  },
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
