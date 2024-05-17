@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { FlightTypes, AirportTypes } from '../../types/types'
 import LoaderDots from '../../components/loader'
 import { GlobeDemo } from '../../components/using-globe'
+import { Input } from '@nextui-org/react'
+import Logo from '../../components/flights/logo'
 
 const Flights = () => {
   const [flightsData, setFlightsData] = useState<FlightTypes[] | null>(null)
@@ -80,19 +82,19 @@ const Flights = () => {
 
   return (
     <div className='container mx-auto p-4'>
-      <h1 className='text-2xl font-bold mb-4'>Flights</h1>
+      <h1 className='text-2xl font-bold mb-4'>Vuelos</h1>
       <div className='flex mb-4 space-x-4'>
-        <input
+        <Input
           type='text'
-          className='w-full p-2 border border-gray-300 rounded'
-          placeholder='Search by departure city'
+          className='w-full rounded-xl'
+          label='Origen'
           value={departureSearchTerm}
           onChange={(e) => setDepartureSearchTerm(e.target.value)}
         />
-        <input
+        <Input
           type='text'
-          className='w-full p-2 border border-gray-300 rounded'
-          placeholder='Search by destination city'
+          className='w-full rounded-xl'
+          label='Destino'
           value={destinationSearchTerm}
           onChange={(e) => setDestinationSearchTerm(e.target.value)}
         />
@@ -127,6 +129,9 @@ const Flights = () => {
                     <p className='text-gray-800 font-bold'>
                       Price: {flight.price}
                     </p>
+                  </div>
+                  <div className='flex items-center justify-center p-4 w-40 h-40'>
+                    <Logo airline={flight.airline} />
                   </div>
                 </div>
               </div>
