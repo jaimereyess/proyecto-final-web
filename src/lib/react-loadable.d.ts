@@ -1,26 +1,18 @@
-declare module 'react-loadable' {
-  import { ComponentType } from 'react'
+declare module '@loadable/component' {
+  import { ComponentType, ReactNode, FunctionComponent } from 'react'
 
-  interface LoadableOptions {
-    loader: () => Promise<any>
-    loading: ComponentType<{
-      isLoading: boolean
-      pastDelay: boolean
-      timedOut: boolean
-      error: any
-    }>
-    delay?: number
-    timeout?: number
-    render?: (loaded: any, props: any) => JSX.Element
-    webpack?: () => number[]
-    modules?: () => string[]
+  interface LoadableOptions<Props> {
+    fallback?: ReactNode
   }
 
-  interface LoadableComponent extends ComponentType {
-    preload: () => void
+  interface LoadableComponent<Props> extends FunctionComponent<Props> {
+    preload: () => Promise<void>
   }
 
-  function Loadable(options: LoadableOptions): LoadableComponent
+  function loadable<Props = {}>(
+    loader: () => Promise<ComponentType<Props>>,
+    options?: LoadableOptions<Props>,
+  ): LoadableComponent<Props>
 
-  export default Loadable
+  export default loadable
 }
