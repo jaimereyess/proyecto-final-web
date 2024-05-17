@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { FlightTypes, AirportTypes } from '../../types/types'
 import LoaderDots from '../../components/loader'
+import { GlobeDemo } from '../../components/using-globe'
 
 const Flights = () => {
   const [flightsData, setFlightsData] = useState<FlightTypes[] | null>(null)
@@ -12,6 +13,8 @@ const Flights = () => {
   const [destinationSearchTerm, setDestinationSearchTerm] = useState('')
 
   useEffect(() => {
+    window.scrollTo(0, 0)
+
     const fetchData = async (url: string) => {
       try {
         const response = await fetch(url)
@@ -132,7 +135,7 @@ const Flights = () => {
             <p>No flights available.</p>
           )
         ) : (
-          <p>Please enter search terms to find flights.</p>
+          <GlobeDemo />
         )}
       </div>
     </div>

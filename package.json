@@ -16,6 +16,8 @@
     "@nextui-org/react": "^2.3.6",
     "@radix-ui/react-label": "^2.0.2",
     "@react-aria/i18n": "^3.11.0",
+    "@react-three/drei": "^9.105.6",
+    "@react-three/fiber": "^8.16.6",
     "@tabler/icons-react": "^3.3.0",
     "axios": "^1.6.8",
     "clsx": "^2.1.1",
@@ -23,9 +25,12 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.1.0",
+    "react-loadable": "^5.5.0",
     "react-loader-spinner": "^6.1.6",
     "react-router-dom": "^6.22.3",
     "tailwind-merge": "^2.3.0",
+    "three": "^0.164.1",
+    "three-globe": "^2.31.0",
     "zustand": "^4.5.2"
   },
   "devDependencies": {

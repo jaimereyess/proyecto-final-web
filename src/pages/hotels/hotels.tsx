@@ -3,6 +3,7 @@ import HotelHCard from '../../components/hotels/cards'
 import { RoomTypes, HotelCardProps } from '../../types/types'
 import { create } from 'zustand'
 import LoaderDots from '../../components/loader'
+import { Input } from '@nextui-org/react'
 
 interface StoreState {
   mensaje: string
@@ -113,18 +114,13 @@ function Hotels() {
       <main className='p-10'>
         {datos ? (
           <div>
-            <div className='rounded-lg p-5 bg-neutral-100 my-2 flex'>
-              <article className='flex flex-col w-full'>
-                <label>Busca tu alojamiento perfecto</label>
-                <input
-                  type='text'
-                  className='w-full py-2 bg-transparent border-neutral-300 border-2 rounded-xl px-2 text-xl'
-                  placeholder={'¿Adónde te gustaría ir?'}
-                  value={searchTerm}
-                  onChange={handleChange}
-                ></input>
-              </article>
-            </div>
+            <Input
+              type='text'
+              label='¿Adónde te gustaría ir?'
+              className='w-1/2 rounded-xl text-xl flex justify-center mx-auto p-4'
+              value={searchTerm}
+              onChange={handleChange}
+            ></Input>
             <section className='flex w-full'>
               <ul className='flex justify-center flex-col gap-5'>
                 {datos.map((hotel) => (
