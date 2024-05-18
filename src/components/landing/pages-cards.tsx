@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom'
+import { useStore } from '../../pages/hotels/hotels'
 
 const PagesCards = () => {
+  const { inc } = useStore()
+
   return (
     <section>
       <h3 className='text-center text-2xl sm:text-5xl py-10 font-medium poetsen-one-regular'>
@@ -9,6 +12,7 @@ const PagesCards = () => {
       </h3>
       <div className='grid grid-cols-1 lg:grid-cols-2 text-center mx-6 sm:mx-48 gap-x-5 gap-y-5 my-10'>
         <Link
+          onClick={() => inc('')}
           to={'/hotels'}
           className='group relative border-2 shadow-lg rounded-lg py-20 bg-cover flex 
               justify-center items-center overflow-hidden transition-all ease-in-out duration-300'

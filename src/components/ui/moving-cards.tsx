@@ -9,8 +9,6 @@ export const InfiniteMovingCards = ({
   className,
 }: {
   items: {
-    quote: string
-    name: string
     title: string
     image?: string
   }[]
@@ -85,35 +83,26 @@ export const InfiniteMovingCards = ({
         )}
       >
         {items.map((item) => (
-          <li
-            className='w-[350px] max-w-full relative rounded-2xl flex-shrink-0 px-8 py-6 md:w-[450px]'
-            style={{
-              backgroundImage: `url(${item.image})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-            key={item.name}
-          >
-            <blockquote>
-              <h6 className=' text-2xl leading-[1.6] text-black font-bold'>
-                {item.title}
-              </h6>
-              <div
-                aria-hidden='true'
-                className='user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]'
-              ></div>
-              <span className=' relative z-20 text-sm leading-[1.6] text-gray-100 font-normal'>
-                {item.quote}
-              </span>
-              <div className='relative z-20 mt-6 flex flex-row items-center'>
-                <span className='flex flex-col gap-1'>
-                  <span className=' text-sm leading-[1.6] text-gray-400 font-normal'>
-                    {item.name}
-                  </span>
-                </span>
-              </div>
-            </blockquote>
-          </li>
+          <div key={item.title}>
+            <li
+              className='w-[350px] h-60 max-w-full relative rounded-2xl flex-shrink-0 px-8 py-6 md:w-[450px]'
+              style={{
+                backgroundImage: `url(${item.image})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+            >
+              <blockquote>
+                <div
+                  aria-hidden='true'
+                  className='user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]'
+                ></div>
+              </blockquote>
+            </li>
+            <h6 className=' text-2xl leading-[1.6] text-black font-bold flex justify-center'>
+              {item.title}
+            </h6>
+          </div>
         ))}
       </ul>
     </div>
