@@ -37,17 +37,13 @@ function Hotels() {
   }
 
   const loadData = async (searchTerm?: string) => {
-    // search by name
     const res = await fetchData(
-      `https://51.20.119.250/hotel${searchTerm ? `/name/${searchTerm}` : ''}`,
+      `/api/hotel${searchTerm ? `/name/${searchTerm}` : ''}`,
     )
-    // search by location
     let resLocation: HotelCardProps[] = []
     if (searchTerm) {
       resLocation = await fetchData(
-        `https://51.20.119.250/hotel/${
-          searchTerm ? `location/${searchTerm}` : ''
-        }`,
+        `/api/hotel/${searchTerm ? `location/${searchTerm}` : ''}`,
       )
     }
 
@@ -66,9 +62,8 @@ function Hotels() {
 
   useEffect(() => {
     loadData(mensaje)
-  }, [])
+  }, [mensaje])
 
-  // search by name
   useEffect(() => {
     const timer = setTimeout(() => {
       if (searchTerm.trim() !== '') {
@@ -82,21 +77,15 @@ function Hotels() {
   }, [searchTerm])
 
   useEffect(() => {
-    const fetchData = async () => {
-      //load rooms data
-      const res = await fetch('https://51.20.119.250/rooms')
+    const fetchRooms = async () => {
+      const res = await fetch('api/rooms')
       const data = await res.json()
       setRooms(data)
     }
 
-    fetchData()
-  }, [datos])
+    fetchRooms()
+  }, [])
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value)
-  }
-
-  //añadir el array de rooms a cada hotel
   useEffect(() => {
     if (datos && rooms) {
       const hotelsWithRooms = datos.map((hotel) => {
@@ -107,7 +96,11 @@ function Hotels() {
       })
       setDatos(hotelsWithRooms)
     }
-  }, [rooms])
+  }, [rooms, datos])
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value)
+  }
 
   return (
     <div>
