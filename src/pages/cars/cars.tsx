@@ -14,7 +14,6 @@ function Cars() {
           throw new Error('Failed to fetch data')
         }
         const data = await response.json()
-        console.log(data)
         return data
       } catch (error) {
         throw new Error(
@@ -24,7 +23,7 @@ function Cars() {
     }
 
     const loadData = async () => {
-      const res = await fetchData('https://51.20.119.250/cars')
+      const res = await fetchData('/api/cars')
       setDatos(res)
     }
 

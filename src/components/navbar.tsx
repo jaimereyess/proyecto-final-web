@@ -14,7 +14,7 @@ const Navbar = () => {
           <NavLink
             to='/hotels'
             className={({ isActive }) =>
-              isActive ? 'text-white' : 'hover:text-indigo-600'
+              isActive ? 'text-white' : 'hover:underline'
             }
           >
             Alojamiento
@@ -22,7 +22,7 @@ const Navbar = () => {
           <NavLink
             to='/flights'
             className={({ isActive }) =>
-              isActive ? 'text-white' : 'hover:text-indigo-600'
+              isActive ? 'text-white' : 'hover:underline'
             }
           >
             Vuelos
@@ -30,7 +30,7 @@ const Navbar = () => {
           <NavLink
             to='/cars'
             className={({ isActive }) =>
-              isActive ? 'text-white' : 'hover:text-indigo-600'
+              isActive ? 'text-white' : 'hover:underline'
             }
           >
             Vehículos
@@ -38,7 +38,7 @@ const Navbar = () => {
           <NavLink
             to='/activities'
             className={({ isActive }) =>
-              isActive ? 'text-white' : 'hover:text-indigo-600'
+              isActive ? 'text-white' : 'hover:underline'
             }
           >
             Actividades

@@ -19,15 +19,14 @@ const HotelPage = () => {
   useEffect(() => {
     const formattedName = name!.replace(/-/g, ' ')
 
-    fetch(`https://51.20.119.250/hotel/name/${formattedName}`)
+    fetch(`/api/hotel/name/${formattedName}`)
       .then((response) => response.json())
       .then((data) => setHotel(data[0]))
       .catch((error) => console.error(error))
   }, [name])
 
   useEffect(() => {
-    console.log(hotel)
-    fetch(`https://51.20.119.250/rooms/hotel/${hotel?.hotel_id}`)
+    fetch(`/api/rooms/hotel/${hotel?.hotel_id}`)
       .then((response) => response.json())
       .then((data) => setRooms(data))
       .catch((error) => console.error(error))

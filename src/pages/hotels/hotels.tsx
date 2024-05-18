@@ -20,6 +20,7 @@ function Hotels() {
   const [datos, setDatos] = useState<HotelCardProps[] | null>(null)
   const [searchTerm, setSearchTerm] = useState(mensaje)
   const [rooms, setRooms] = useState<RoomTypes[] | null>(null)
+  const [loading, setLoading] = useState(true)
 
   const fetchData = async (url: string) => {
     try {
@@ -36,16 +37,14 @@ function Hotels() {
     }
   }
 
-  const loadData = async (searchTerm?: string) => {
-    // search by name
+  const loadHotelData = async (searchTerm?: string) => {
     const res = await fetchData(
-      `api/hotel${searchTerm ? `/name/${searchTerm}` : ''}`,
+      `/api/hotel${searchTerm ? `/name/${searchTerm}` : ''}`,
     )
-    // search by location
     let resLocation: HotelCardProps[] = []
     if (searchTerm) {
       resLocation = await fetchData(
-        `api/hotel/${searchTerm ? `location/${searchTerm}` : ''}`,
+        `/api/hotel/${searchTerm ? `location/${searchTerm}` : ''}`,
       )
     }
 
@@ -62,39 +61,33 @@ function Hotels() {
     setDatos(uniqueHotels)
   }
 
-  useEffect(() => {
-    loadData(mensaje)
-  }, [])
+  const loadRoomData = async () => {
+    const res = await fetchData('/api/rooms')
+    setRooms(res)
+  }
 
-  // search by name
+  useEffect(() => {
+    const loadData = async () => {
+      setLoading(true)
+      await loadHotelData(mensaje)
+      await loadRoomData()
+      setLoading(false)
+    }
+    loadData()
+  }, [mensaje])
+
   useEffect(() => {
     const timer = setTimeout(() => {
       if (searchTerm.trim() !== '') {
-        loadData(searchTerm)
+        loadHotelData(searchTerm)
       } else {
-        loadData()
+        loadHotelData()
       }
     }, 250)
 
     return () => clearTimeout(timer)
   }, [searchTerm])
 
-  useEffect(() => {
-    const fetchData = async () => {
-      //load rooms data
-      const res = await fetch('api/rooms')
-      const data = await res.json()
-      setRooms(data)
-    }
-
-    fetchData()
-  }, [datos])
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value)
-  }
-
-  //añadir el array de rooms a cada hotel
   useEffect(() => {
     if (datos && rooms) {
       const hotelsWithRooms = datos.map((hotel) => {
@@ -107,10 +100,16 @@ function Hotels() {
     }
   }, [rooms])
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value)
+  }
+
   return (
     <div>
       <main className='p-10'>
-        {datos ? (
+        {loading ? (
+          <LoaderDots />
+        ) : (
           <div>
             <Input
               type='text'
@@ -121,25 +120,24 @@ function Hotels() {
             ></Input>
             <section className='flex w-full'>
               <ul className='flex justify-center flex-col gap-5'>
-                {datos.map((hotel) => (
-                  <HotelHCard
-                    key={hotel.hotel_id}
-                    id={hotel.hotel_id}
-                    name={hotel.name}
-                    location={hotel.location}
-                    description={hotel.description}
-                    images={hotel.images}
-                    stars={hotel.stars}
-                    breakfast_included={hotel.breakfast_included}
-                    rating={hotel.rating}
-                    rooms={hotel.rooms}
-                  />
-                ))}
+                {datos &&
+                  datos.map((hotel) => (
+                    <HotelHCard
+                      key={hotel.hotel_id}
+                      id={hotel.hotel_id}
+                      name={hotel.name}
+                      location={hotel.location}
+                      description={hotel.description}
+                      images={hotel.images}
+                      stars={hotel.stars}
+                      breakfast_included={hotel.breakfast_included}
+                      rating={hotel.rating}
+                      rooms={hotel.rooms}
+                    />
+                  ))}
               </ul>
             </section>
           </div>
-        ) : (
-          <LoaderDots />
         )}
       </main>
     </div>

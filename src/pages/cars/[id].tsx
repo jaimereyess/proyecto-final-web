@@ -8,7 +8,7 @@ const CarsPage = () => {
   const [car, setCar] = useState<CarTypes>()
 
   useEffect(() => {
-    fetch(`https://51.20.119.250/cars/${id}`)
+    fetch(`/api/cars/${id}`)
       .then((response) => response.json())
       .then((data) => setCar(data))
       .catch((error) => console.error(error))
@@ -16,8 +16,6 @@ const CarsPage = () => {
   if (!car) {
     return <LoaderDots />
   }
-
-  console.log(car)
 
   return (
     <div>

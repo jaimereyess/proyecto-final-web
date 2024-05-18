@@ -33,7 +33,7 @@ const Flights = () => {
     }
 
     const loadAirportsData = async () => {
-      const airports = await fetchData('https://51.20.119.250/airports')
+      const airports = await fetchData('/api/airports')
       const airportInfoMap: { [key: string]: AirportTypes } = {}
       airports.forEach((airport: AirportTypes) => {
         airportInfoMap[airport.airport_code] = airport
@@ -42,7 +42,7 @@ const Flights = () => {
     }
 
     const loadFlightsData = async () => {
-      const flights = await fetchData('https://51.20.119.250/flights')
+      const flights = await fetchData('/api/flights')
       setFlightsData(flights)
       setLoading(false)
     }
