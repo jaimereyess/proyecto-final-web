@@ -4,6 +4,8 @@ import { RoomTypes, HotelCardProps } from '../../types/types'
 import { create } from 'zustand'
 import LoaderDots from '../../components/loader'
 import { Input } from '@nextui-org/react'
+import axios from 'axios'
+import https from 'https'
 
 interface StoreState {
   mensaje: string
@@ -15,6 +17,10 @@ export const useStore = create<StoreState>((set) => ({
   inc: (mensaje: string) => set({ mensaje }),
 }))
 
+const agent = new https.Agent({
+  rejectUnauthorized: false,
+})
+
 function Hotels() {
   const { mensaje } = useStore()
   const [datos, setDatos] = useState<HotelCardProps[] | null>(null)
@@ -23,15 +29,11 @@ function Hotels() {
 
   const fetchData = async (url: string) => {
     try {
-      const response = await fetch(url)
-      if (!response.ok) {
-        throw new Error('Failed to fetch data')
-      }
-      const data = await response.json()
-      return data
+      const response = await axios.get(url, { httpsAgent: agent })
+      return response.data
     } catch (error) {
       throw new Error(
-        error instanceof Response ? await error.text() : 'Unknown error',
+        axios.isAxiosError(error) ? error.response?.data : 'Unknown error',
       )
     }
   }
@@ -55,7 +57,7 @@ function Hotels() {
         acc.push(hotel)
       }
       return acc
-    }, [])
+    }, [] as HotelCardProps[])
 
     setDatos(uniqueHotels)
   }
@@ -78,8 +80,7 @@ function Hotels() {
 
   useEffect(() => {
     const fetchRooms = async () => {
-      const res = await fetch('api/rooms')
-      const data = await res.json()
+      const data = await fetchData('/api/rooms')
       setRooms(data)
     }
 
