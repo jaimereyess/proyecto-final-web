@@ -74,7 +74,7 @@ const HotelPage = () => {
 
           <div className='flex flex-col py-4 mx-20 items-center'>
             {rooms.length} Habitaciones disponibles
-            <ul className='mt-4 grid grid-cols-2 gap-5'>
+            <ul className='mt-4 grid grid-cols-1 md:grid-cols-2 gap-5'>
               {rooms.length > 0 &&
                 rooms.map((room, index) => (
                   <RoomsCards room={room} key={index} />
