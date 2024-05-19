@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
 import { useStore } from '../../pages/hotels/hotels'
+import { useDestination } from '../../pages/filights/flights'
 
 const PagesCards = () => {
   const { inc } = useStore()
+  const { inc: incDestination } = useDestination()
 
   return (
     <section>
@@ -28,6 +30,7 @@ const PagesCards = () => {
         </Link>
 
         <Link
+          onClick={() => incDestination('')}
           to={'/flights'}
           className='group relative border-2 shadow-lg rounded-lg py-20 bg-cover flex 
               justify-center items-center overflow-hidden transition-all ease-in-out duration-300'

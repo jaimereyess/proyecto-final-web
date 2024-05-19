@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { NextUIProvider } from '@nextui-org/react'
 import Home from './pages/home'
 import AddHotelForm from './pages/create-hotel'
+import EditHotel from './pages/hotels/[id]/edit-hotel'
 import Hotels from './pages/hotels/hotels'
 import HotelPage from './pages/hotels/[name]'
 import Cars from './pages/cars/cars'
@@ -21,7 +22,11 @@ export const router = createBrowserRouter([
         <Home />
       </Layout>
     ),
-    errorElement: <NotFound />,
+    errorElement: (
+      <Layout>
+        <NotFound />
+      </Layout>
+    ),
   },
   {
     path: '/hotels',
@@ -73,7 +78,19 @@ export const router = createBrowserRouter([
   },
   {
     path: '*',
-    element: <NotFound />,
+    element: (
+      <Layout>
+        <NotFound />
+      </Layout>
+    ),
+  },
+  {
+    path: '/hotels/:id/edit',
+    element: (
+      <Layout>
+        <EditHotel />
+      </Layout>
+    ),
   },
 ])
 

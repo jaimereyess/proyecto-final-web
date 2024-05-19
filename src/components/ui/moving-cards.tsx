@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { cn } from '../../../utils/cn'
+import { useDestination } from '../../pages/filights/flights'
+import { Link } from 'react-router-dom'
 
 export const InfiniteMovingCards = ({
   items,
@@ -17,6 +19,7 @@ export const InfiniteMovingCards = ({
   pauseOnHover?: boolean
   className?: string
 }) => {
+  const { inc } = useDestination()
   const containerRef = React.useRef<HTMLDivElement>(null)
   const scrollerRef = React.useRef<HTMLUListElement>(null)
 
@@ -84,24 +87,26 @@ export const InfiniteMovingCards = ({
       >
         {items.map((item) => (
           <div key={item.title}>
-            <li
-              className='w-[350px] h-60 max-w-full relative rounded-2xl flex-shrink-0 px-8 py-6 md:w-[450px]'
-              style={{
-                backgroundImage: `url(${item.image})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-            >
-              <blockquote>
-                <div
-                  aria-hidden='true'
-                  className='user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]'
-                ></div>
-              </blockquote>
-            </li>
-            <h6 className=' text-2xl leading-[1.6] text-black font-bold flex justify-center'>
-              {item.title}
-            </h6>
+            <Link to={'/flights'} onClick={() => inc && inc(item.title)}>
+              <li
+                className='w-[350px] h-60 max-w-full relative rounded-2xl flex-shrink-0 px-8 py-6 md:w-[450px]'
+                style={{
+                  backgroundImage: `url(${item.image})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              >
+                <blockquote>
+                  <div
+                    aria-hidden='true'
+                    className='user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]'
+                  ></div>
+                </blockquote>
+              </li>
+              <h6 className=' text-2xl leading-[1.6] text-black font-bold flex justify-center'>
+                {item.title}
+              </h6>
+            </Link>
           </div>
         ))}
       </ul>

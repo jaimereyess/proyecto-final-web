@@ -117,10 +117,10 @@ function Hotels() {
               className='w-1/2 rounded-xl text-xl flex justify-center mx-auto p-4'
               value={searchTerm}
               onChange={handleChange}
-            ></Input>
-            <section className='flex w-full'>
+            />
+            <section className='flex w-full justify-center '>
               <ul className='flex justify-center flex-col gap-5'>
-                {datos &&
+                {datos && datos.length > 0 ? (
                   datos.map((hotel) => (
                     <HotelHCard
                       key={hotel.hotel_id}
@@ -134,7 +134,17 @@ function Hotels() {
                       rating={hotel.rating}
                       rooms={hotel.rooms}
                     />
-                  ))}
+                  ))
+                ) : (
+                  <div className='flex text-2xl text-gray-700 justify-center flex-col items-center'>
+                    <img
+                      src='/no-results.jpg'
+                      alt='sin resultados'
+                      className='w-96 aspect-auto'
+                    />
+                    <p>{`No se encontraron alojamientos :(`}</p>
+                  </div>
+                )}
               </ul>
             </section>
           </div>

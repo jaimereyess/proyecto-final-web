@@ -4,15 +4,29 @@ import LoaderDots from '../../components/loader'
 import { GlobeDemo } from '../../components/using-globe'
 import { Input } from '@nextui-org/react'
 import Logo from '../../components/flights/logo'
+import { create } from 'zustand'
+
+interface StoreState {
+  destination: string
+  inc: (destination: string) => void
+}
+
+export const useDestination = create<StoreState>((set) => ({
+  destination: '',
+  inc: (destination: string) => set({ destination }),
+}))
 
 const Flights = () => {
+  const { destination } = useDestination()
   const [flightsData, setFlightsData] = useState<FlightTypes[] | null>(null)
   const [airportInfo, setAirportInfo] = useState<{
     [key: string]: AirportTypes
   }>({})
   const [loading, setLoading] = useState(true)
   const [departureSearchTerm, setDepartureSearchTerm] = useState('')
-  const [destinationSearchTerm, setDestinationSearchTerm] = useState('')
+  const [destinationSearchTerm, setDestinationSearchTerm] = useState(
+    destination || '',
+  )
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -81,7 +95,7 @@ const Flights = () => {
   })
 
   return (
-    <div className='container mx-auto p-4'>
+    <div className='container mx-auto p-4 '>
       <h1 className='text-2xl font-bold mb-4'>Vuelos</h1>
       <div className='flex mb-4 space-x-4'>
         <Input
@@ -99,7 +113,7 @@ const Flights = () => {
           onChange={(e) => setDestinationSearchTerm(e.target.value)}
         />
       </div>
-      <div className='flex flex-wrap'>
+      <div className='flex flex-wrap justify-center'>
         {departureSearchTerm || destinationSearchTerm ? (
           filteredFlights && filteredFlights.length > 0 ? (
             filteredFlights.map((flight) => (
@@ -137,7 +151,14 @@ const Flights = () => {
               </div>
             ))
           ) : (
-            <p>No flights available.</p>
+            <div className='flex text-2xl text-gray-700 justify-center flex-col items-center'>
+              <img
+                src='/no-results.jpg'
+                alt='sin resultados'
+                className='w-96 aspect-auto'
+              />
+              <p>{`No hay vuelos disponibles :(`}</p>
+            </div>
           )
         ) : (
           <GlobeDemo />
