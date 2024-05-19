@@ -13,6 +13,7 @@ import CarsPage from './pages/cars/[id]'
 import Flights from './pages/filights/flights'
 import Layout from './layout'
 import NotFound from './not-found'
+import HotelList from './components/hotels/hotel-list'
 
 export const router = createBrowserRouter([
   {
@@ -81,6 +82,14 @@ export const router = createBrowserRouter([
     element: (
       <Layout>
         <NotFound />
+      </Layout>
+    ),
+  },
+  {
+    path: '/hotels/list',
+    element: (
+      <Layout>
+        <HotelList />
       </Layout>
     ),
   },

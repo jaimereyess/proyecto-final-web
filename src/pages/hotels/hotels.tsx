@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import HotelHCard from '../../components/hotels/cards'
-import { RoomTypes, HotelCardProps } from '../../types/types'
 import { create } from 'zustand'
 import LoaderDots from '../../components/loader'
 import { Input } from '@nextui-org/react'
+import useHotels from '../../lib/hooks/useHotels'
 
 interface StoreState {
   mensaje: string
@@ -17,64 +17,8 @@ export const useStore = create<StoreState>((set) => ({
 
 function Hotels() {
   const { mensaje } = useStore()
-  const [datos, setDatos] = useState<HotelCardProps[] | null>(null)
+  const { hotels, rooms, loading, loadHotelData } = useHotels()
   const [searchTerm, setSearchTerm] = useState(mensaje)
-  const [rooms, setRooms] = useState<RoomTypes[] | null>(null)
-  const [loading, setLoading] = useState(true)
-
-  const fetchData = async (url: string) => {
-    try {
-      const response = await fetch(url)
-      if (!response.ok) {
-        throw new Error('Failed to fetch data')
-      }
-      const data = await response.json()
-      return data
-    } catch (error) {
-      throw new Error(
-        error instanceof Response ? await error.text() : 'Unknown error',
-      )
-    }
-  }
-
-  const loadHotelData = async (searchTerm?: string) => {
-    const res = await fetchData(
-      `/api/hotel${searchTerm ? `/name/${searchTerm}` : ''}`,
-    )
-    let resLocation: HotelCardProps[] = []
-    if (searchTerm) {
-      resLocation = await fetchData(
-        `/api/hotel/${searchTerm ? `location/${searchTerm}` : ''}`,
-      )
-    }
-
-    const uniqueHotels = [...res, ...resLocation].reduce((acc, hotel) => {
-      const existingHotel = acc.find(
-        (h: HotelCardProps) => h.hotel_id === hotel.hotel_id,
-      )
-      if (!existingHotel) {
-        acc.push(hotel)
-      }
-      return acc
-    }, [])
-
-    setDatos(uniqueHotels)
-  }
-
-  const loadRoomData = async () => {
-    const res = await fetchData('/api/rooms')
-    setRooms(res)
-  }
-
-  useEffect(() => {
-    const loadData = async () => {
-      setLoading(true)
-      await loadHotelData(mensaje)
-      await loadRoomData()
-      setLoading(false)
-    }
-    loadData()
-  }, [mensaje])
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -86,19 +30,7 @@ function Hotels() {
     }, 250)
 
     return () => clearTimeout(timer)
-  }, [searchTerm])
-
-  useEffect(() => {
-    if (datos && rooms) {
-      const hotelsWithRooms = datos.map((hotel) => {
-        const hotelRooms = rooms.filter(
-          (room) => room.hotel_id === hotel.hotel_id,
-        )
-        return { ...hotel, rooms: hotelRooms }
-      })
-      setDatos(hotelsWithRooms)
-    }
-  }, [rooms])
+  }, [searchTerm, loadHotelData])
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value)
@@ -120,8 +52,8 @@ function Hotels() {
             />
             <section className='flex w-full justify-center '>
               <ul className='flex justify-center flex-col gap-5'>
-                {datos && datos.length > 0 ? (
-                  datos.map((hotel) => (
+                {hotels && hotels.length > 0 ? (
+                  hotels.map((hotel) => (
                     <HotelHCard
                       key={hotel.hotel_id}
                       id={hotel.hotel_id}
@@ -132,7 +64,13 @@ function Hotels() {
                       stars={hotel.stars}
                       breakfast_included={hotel.breakfast_included}
                       rating={hotel.rating}
-                      rooms={hotel.rooms}
+                      rooms={
+                        rooms
+                          ? rooms.filter(
+                              (room) => room.hotel_id === hotel.hotel_id,
+                            )
+                          : []
+                      }
                     />
                   ))
                 ) : (

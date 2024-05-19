@@ -45,8 +45,8 @@ export interface HotelCardProps {
   description: string
   images: string[]
   breakfast_included: boolean
-  stars: number
-  rating: number
+  stars: number | string
+  rating: number | string
   rooms: RoomTypes[] | null
 }
 

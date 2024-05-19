@@ -94,8 +94,6 @@ const EditHotel = () => {
         )
       }
 
-      const hotelUpdated: Hotel = await response.json()
-      console.log('Hotel actualizado:', hotelUpdated)
       navigate('/hotels')
     } catch (error: any) {
       console.error(error)
