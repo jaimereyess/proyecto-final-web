@@ -2,8 +2,6 @@ import CardIcons from '../../components/hotels/card-icons'
 import { RoomTypes } from '../../types/types'
 
 const RoomsCards = ({ room }: { room: RoomTypes }) => {
-  console.log(room)
-
   return (
     <div className='relative flex items-center justify-center w-full'>
       <div className='rounded-xl border p-5 shadow-md bg-white h-60 w-60'>
