@@ -56,7 +56,7 @@ const HotelPage = () => {
 
   return (
     <main className='p-14'>
-      <div className='grid grid-cols md:grid-cols-2 '>
+      <div className='grid grid-cols md:grid-cols-2'>
         <article>
           <Image
             isBlurred
@@ -71,12 +71,22 @@ const HotelPage = () => {
         <section>
           <h1 className='ml-10 text-2xl font-semibold'>{hotel.name}</h1>
           <p className='ml-10 text-lg'>{hotel.description}</p>
+
+          <div className='flex flex-col py-4 mx-20 items-center'>
+            {rooms.length} Habitaciones disponibles
+            <ul className='mt-4 grid grid-cols-2 gap-5'>
+              {rooms.length > 0 &&
+                rooms.map((room, index) => (
+                  <RoomsCards room={room} key={index} />
+                ))}
+            </ul>
+          </div>
         </section>
       </div>
 
       <div className='mt-10 flex flex-col'>
         Comprobar disponibilidad
-        <section className='flex w-1/2 gap-2'>
+        <section className='flex w-1/2 gap-2 items-end'>
           <div className='w-full flex flex-col gap-1'>
             <h3>Fecha de entrada</h3>
             <I18nProvider locale='en-GB'>
@@ -97,14 +107,12 @@ const HotelPage = () => {
               />
             </I18nProvider>
           </div>
-        </section>
-        <section className='flex w-3/4'>
-          {rooms.length} Habitaciones disponibles
-          {rooms.length > 0 &&
-            rooms.map((room, index) => <RoomsCards room={room} key={index} />)}
+          <button className='flex  rounded-lg px-3 items-end mb-5'>
+            Reservar
+          </button>
         </section>
         <iframe
-          className='rounded-md'
+          className='rounded-md mt-10 flex justify-center w-full md:w-3/4 h-96'
           width='400'
           height='300'
           loading='lazy'
