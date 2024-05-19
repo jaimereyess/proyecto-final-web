@@ -29,9 +29,9 @@ const HotelCard = ({
 
   return (
     <Link to={`/hotel/${name.replace(/ /g, '-')}`}>
-      <div className='bg-white rounded-xl overflow-hidden shadow-md relative'>
+      <div className='bg-white rounded-xl overflow-hidden shadow-md relative w-full'>
         <div className='lg:flex'>
-          <div className='w-full lg:w-1/3 h-40'>
+          <div className='w-full lg:w-1/3 h-48'>
             <img
               src={images[0]}
               alt={name}

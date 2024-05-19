@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import HotelHCard from '../../components/hotels/cards'
 import { create } from 'zustand'
 import LoaderDots from '../../components/loader'
@@ -19,8 +19,14 @@ function Hotels() {
   const { mensaje } = useStore()
   const { hotels, rooms, loading, loadHotelData } = useHotels()
   const [searchTerm, setSearchTerm] = useState(mensaje)
+  const isInitialMount = useRef(true)
 
   useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false
+      return
+    }
+
     const timer = setTimeout(() => {
       if (searchTerm.trim() !== '') {
         loadHotelData(searchTerm)
@@ -30,7 +36,7 @@ function Hotels() {
     }, 250)
 
     return () => clearTimeout(timer)
-  }, [searchTerm, loadHotelData])
+  }, [searchTerm])
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value)
@@ -51,7 +57,7 @@ function Hotels() {
               onChange={handleChange}
             />
             <section className='flex w-full justify-center '>
-              <ul className='flex justify-center flex-col gap-5'>
+              <ul className='flex justify-center flex-col gap-5 w-3/4'>
                 {hotels && hotels.length > 0 ? (
                   hotels.map((hotel) => (
                     <HotelHCard
