@@ -170,6 +170,13 @@ const Logo = ({ airline }: { airline: string }) => {
           alt='Delta Airlines'
         />
       )
+    case 'Swiss':
+      return (
+        <Image
+          src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Swiss_new.svg/2560px-Swiss_new.svg.png'
+          alt='Swiss'
+        />
+      )
   }
 }
 

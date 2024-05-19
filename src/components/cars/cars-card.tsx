@@ -4,7 +4,6 @@ import {
   CCardBody,
   CCardTitle,
   CCardText,
-  CCardLink,
   CListGroup,
   CListGroupItem,
   CCardFooter,
@@ -46,26 +45,21 @@ const CarsCard: React.FC<CarsProps> = ({ car }) => {
           <CCardText>{`${car.description}`}</CCardText>
         </CCardBody>
         <CListGroup flush>
-          <CListGroupItem>{`Year: ${car.year}`}</CListGroupItem>
-          <CListGroupItem>{`GPS: ${
-            car.has_gps ? 'Yes' : 'No'
+          <CListGroupItem>{`Año: ${car.year}`}</CListGroupItem>
+          <CListGroupItem>{`GPS: ${car.has_gps ? 'Si' : 'No'}`}</CListGroupItem>
+          <CListGroupItem>{`Automatico: ${
+            car.has_automatic_transmission ? 'Si' : 'No'
           }`}</CListGroupItem>
-          <CListGroupItem>{`Automatic Transmission: ${
-            car.has_automatic_transmission ? 'Yes' : 'No'
-          }`}</CListGroupItem>
-          <CListGroupItem>{`Air Conditioning: ${
-            car.has_air_conditioning ? 'Yes' : 'No'
+          <CListGroupItem>{`Aire Acondicionado: ${
+            car.has_air_conditioning ? 'Si' : 'No'
           }`}</CListGroupItem>
         </CListGroup>
         <Divider className='my-2' />
       </div>
       <CCardFooter className='mt-2'>
-        <CCardLink
-          className='w-full bg-orange-300 py-2 px-3 rounded-lg text-center float-end'
-          href={`/cars/${car.car_id}`}
-        >
+        <button className='w-full bg-orange-300 py-2 px-3 rounded-lg text-center float-end'>
           Alquilar - {car.price} €/día
-        </CCardLink>
+        </button>
       </CCardFooter>
     </CCard>
   )

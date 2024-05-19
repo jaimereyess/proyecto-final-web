@@ -13,6 +13,7 @@ export const InfiniteMovingCards = ({
   items: {
     title: string
     image?: string
+    arrival: string
   }[]
   direction?: 'left' | 'right'
   speed?: 'fast' | 'normal' | 'slow'
@@ -87,7 +88,7 @@ export const InfiniteMovingCards = ({
       >
         {items.map((item) => (
           <div key={item.title}>
-            <Link to={'/flights'} onClick={() => inc && inc(item.title)}>
+            <Link to={'/flights'} onClick={() => inc && inc(item.arrival)}>
               <li
                 className='w-[350px] h-60 max-w-full relative rounded-2xl flex-shrink-0 px-8 py-6 md:w-[450px]'
                 style={{
